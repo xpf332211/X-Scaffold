@@ -2,6 +2,7 @@ package com.meiya.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.meiya.convert.UserConverter;
 import com.meiya.entity.po.UserPo;
 import com.meiya.entity.req.UserReq;
 import com.meiya.entity.PageResult;
@@ -30,8 +31,7 @@ public class UserController {
 
     @PostMapping
     public Result<UserPo> addUser(@RequestBody UserReq userReq){
-        UserPo userPo = new UserPo();
-        BeanUtils.copyProperties(userReq,userPo);
+        UserPo userPo = UserConverter.INSTANCE.convertReqToPo(userReq);
         userService.save(userPo);
         return Result.ok();
     }
