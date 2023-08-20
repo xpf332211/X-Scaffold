@@ -1,7 +1,11 @@
 package com.meiya.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.meiya.entity.po.UserPo;
 import com.meiya.entity.req.UserReq;
+import com.meiya.entity.PageResult;
+import com.meiya.result.Result;
 import com.meiya.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -25,10 +29,25 @@ public class UserController {
     }
 
     @PostMapping
-    public boolean addUser(@RequestBody UserReq userReq){
+    public Result<UserPo> addUser(@RequestBody UserReq userReq){
         UserPo userPo = new UserPo();
         BeanUtils.copyProperties(userReq,userPo);
-        boolean save = userService.save(userPo);
-        return save;
+        userService.save(userPo);
+        return Result.ok();
+    }
+
+    @DeleteMapping("/{id}")
+    public Result<UserPo> deleteUser(@PathVariable Long id){
+        userService.removeById(id);
+        return Result.ok();
+    }
+
+    @GetMapping
+    public PageResult<UserPo> pageUser(@RequestBody UserReq userReq){
+        IPage<UserPo> userPoPage = new Page<>(userReq.getPageIndex(),userReq.getPageSize());
+        IPage<UserPo> page = userService.page(userPoPage);
+        PageResult<UserPo> result = new PageResult<>();
+        result.loadPageData(page);
+        return result;
     }
 }

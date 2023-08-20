@@ -22,4 +22,14 @@ public class UserReq {
      * 用户年龄
      */
     private Integer age;
+
+    /**
+     * 当前页数
+     */
+    private Integer pageIndex;
+
+    /**
+     * 条数
+     */
+    private Integer pageSize;
 }
