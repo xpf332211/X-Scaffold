@@ -8,10 +8,14 @@ import com.meiya.entity.req.UserReq;
 import com.meiya.entity.PageResult;
 import com.meiya.result.Result;
 import com.meiya.service.UserService;
+import com.meiya.util.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
 
 /**
  * @author xiaopf
@@ -23,6 +27,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Resource
+    private RedisUtil redisUtil;
 
     @GetMapping("/{id}")
     public String getUserId(@PathVariable Long id){
@@ -49,5 +56,10 @@ public class UserController {
         PageResult<UserPo> result = new PageResult<>();
         result.loadPageData(page);
         return result;
+    }
+
+    @GetMapping("/testRedis")
+    public void testRedis(){
+        redisUtil.set("aa","ok");
     }
 }
