@@ -9,96 +9,10 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-
-
         <module>xscaffold-user</module>
-        <module>xscaffold-common/xscaffold-common-mybatisplus</module>
-        <module>xscaffold-common/xscaffold-common-web</module>
+        <module>xscaffold-common</module>
+        <module>xscaffold-dependencies</module>
+        <module>xscaffold-common/xscaffold-common-starter</module>
     </modules>
 
-    <properties>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.plugin.version>3.10.1</maven.plugin.version>
-        <logback-classic.version>1.2.12</logback-classic.version>
-        <mapstruct.version>1.5.3.Final</mapstruct.version>
-    </properties>
-
-    <parent>
-        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-parent -->
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.14</version>
-    </parent>
-
-    <!--    公共依赖-->
-    <dependencies>
-
-<!--        xscaffold框架模块依赖-->
-        <dependency>
-            <groupId>org.example</groupId>
-            <artifactId>xscaffold-common-web</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>org.example</groupId>
-            <artifactId>xscaffold-common-mybatisplus</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>org.example</groupId>
-            <artifactId>xscaffold-common-swagger</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>org.example</groupId>
-            <artifactId>xscaffold-common-redis</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-
-
-    </dependencies>
-
-<!--    子模块依赖版本管理-->
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.mapstruct</groupId>
-                <artifactId>mapstruct</artifactId>
-                <version>${mapstruct.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.mapstruct</groupId>
-                <artifactId>mapstruct-processor</artifactId>
-                <version>${mapstruct.version}</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven.plugin.version}</version>
-                <configuration>
-                    <source>${maven.compiler.source}</source>
-                    <target>${maven.compiler.target}</target>
-                    <encoding>${project.build.sourceEncoding}</encoding>
-                </configuration>
-            </plugin>
-        </plugins>
-<!--        打包指定-->
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-            </resource>
-            <resource>
-                <directory>src/main/java</directory>
-                <includes>
-                    <include>**/*.xml</include>
-                </includes>
-            </resource>
-        </resources>
-    </build>
 </project>
