@@ -47,6 +47,8 @@ mybatis-plus:
 
 logging:
   config: classpath:log4j2-spring.xml
+
+
 xscaffold:
   sql:
     graceful:
@@ -59,4 +61,7 @@ xscaffold:
     email: pfxiao0730@163.com
     version: 1.0
     description: x-脚手架
+  log:
+    aspect:
+      enable: true
 

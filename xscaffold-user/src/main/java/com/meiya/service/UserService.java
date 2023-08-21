@@ -9,5 +9,5 @@ import com.meiya.entity.po.UserPo;
  * @author xiaopf
  */
 public interface UserService extends IService<UserPo> {
-
+    public void run();
 }

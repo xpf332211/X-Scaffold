@@ -18,4 +18,8 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl extends ServiceImpl<UserMapper, UserPo> implements UserService {
 
 
+    @Override
+    public void run() {
+
+    }
 }
