@@ -13,12 +13,12 @@
 
 
     <properties>
-        <spring-boot-starter.version>2.4.2</spring-boot-starter.version>
-        <spring-boot-starter-web.version>2.4.2</spring-boot-starter-web.version>
-        <spring-boot-autoconfigure.version>2.4.2</spring-boot-autoconfigure.version>
-        <spring-boot-starter-jdbc.version>2.4.2</spring-boot-starter-jdbc.version>
-        <spring-boot-starter-data-redis.version>2.4.2</spring-boot-starter-data-redis.version>
-        <spring-boot-starter-log4j2.version>2.4.2</spring-boot-starter-log4j2.version>
+        <spring-boot-starter.version>2.7.14</spring-boot-starter.version>
+        <spring-boot-starter-web.version>2.7.14</spring-boot-starter-web.version>
+        <spring-boot-autoconfigure.version>2.7.14</spring-boot-autoconfigure.version>
+        <spring-boot-starter-jdbc.version>2.7.14</spring-boot-starter-jdbc.version>
+        <spring-boot-starter-data-redis.version>2.7.14</spring-boot-starter-data-redis.version>
+        <spring-boot-starter-log4j2.version>2.7.14</spring-boot-starter-log4j2.version>
         <lombok.version>1.18.16</lombok.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -34,7 +34,6 @@
         <mysql-connector-java.version>8.0.32</mysql-connector-java.version>
         <mybatis-plus-boot-starter.version>3.5.2</mybatis-plus-boot-starter.version>
         <disruptor.version>3.4.2</disruptor.version>
-        <commons.pool.version>2.9.0</commons.pool.version>
     </properties>
 
 
@@ -96,11 +95,6 @@
                 <groupId>commons-lang</groupId>
                 <artifactId>commons-lang</artifactId>
                 <version>${commons-lang.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.commons</groupId>
-                <artifactId>commons-pool2</artifactId>
-                <version>${commons.pool.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
