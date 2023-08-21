@@ -16,6 +16,7 @@ import org.springframework.context.annotation.ComponentScan;
 @Slf4j
 public class UserApplication {
     public static void main(String[] args) {
+        System.setProperty("Log4jContextSelector", "org.apache.logging.log4j.core.async.AsyncLoggerContextSelector");
         SpringApplication.run(UserApplication.class,args);
         log.info("user模块启动成功~");
     }

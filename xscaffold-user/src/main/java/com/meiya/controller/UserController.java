@@ -77,4 +77,14 @@ public class UserController {
         boolean lock = redisDistributedLockUtil.lock("xiao", 100L);
         System.out.println(lock);
     }
+
+    @GetMapping("/testLog")
+    public void testLog(){
+        long start = System.currentTimeMillis();
+        for (int i = 0; i < 100 * 1000 ;i++){
+            log.info("第{}条日志",i);
+        }
+        long end = System.currentTimeMillis();
+        log.info("打印完成，耗时{}ms",end - start);
+    }
 }
