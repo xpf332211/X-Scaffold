@@ -8,10 +8,12 @@ import com.meiya.entity.req.UserReq;
 import com.meiya.entity.PageResult;
 import com.meiya.result.Result;
 import com.meiya.service.UserService;
+import com.meiya.util.RedisDistributedLockUtil;
 import com.meiya.util.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,15 +27,22 @@ import javax.annotation.Resource;
 @Slf4j
 public class UserController {
 
-    @Autowired
+    @Resource
     private UserService userService;
 
     @Resource
     private RedisUtil redisUtil;
 
+    @Resource
+    private RedisDistributedLockUtil redisDistributedLockUtil;
+
+
+
+    @Cacheable(cacheNames = "user",key = "'queryId' + #id")
     @GetMapping("/{id}")
-    public String getUserId(@PathVariable Long id){
-        return "my id is " + id;
+    public UserPo getUserId(@PathVariable Long id){
+        System.out.println("1");
+        return userService.getById(id);
     }
 
     @PostMapping
@@ -61,5 +70,11 @@ public class UserController {
     @GetMapping("/testRedis")
     public void testRedis(){
         redisUtil.set("aa","ok");
+    }
+
+    @GetMapping("/testLock")
+    public void testRedisLock(){
+        boolean lock = redisDistributedLockUtil.lock("xiao", 100L);
+        System.out.println(lock);
     }
 }
