@@ -21,7 +21,7 @@ import java.util.function.Function;
 @Slf4j
 public class LocalCacheUtil<K,V> {
 
-    @Value("${xscaffold.localCache.enable}")
+    @Value("${xscaffold.localCache.enable:false}")
     private boolean enableLocalCache;
     private Cache<String,String> localCahe = CacheBuilder.newBuilder()
             .maximumSize(5000)
@@ -46,5 +46,6 @@ public class LocalCacheUtil<K,V> {
             resultMap = function.apply(idList);
             return resultMap;
         }
+        return null;
     }
 }

@@ -19,6 +19,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -98,7 +99,9 @@ public class UserController {
         Map<String, Object> map = new HashMap<>(8);
         map.put("name","lili");
         map.put("mine","mine..");
-        map.put("date",new Date());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String dateStr = sdf.format(new Date());
+        map.put("date",dateStr);
         ExportWordUtil.exportWord(map,"导出文件","wordTemplate.ftl");
     }
 }

@@ -22,7 +22,7 @@ public class ExportWordUtil {
     static {
         configuration = new Configuration(Configuration.VERSION_2_3_31);
         configuration.setDefaultEncoding("UTF-8");
-        configuration.setClassForTemplateLoading(ExportWordUtil.class, "/template");
+        configuration.setClassForTemplateLoading(ExportWordUtil.class, "/templates");
     }
 
     /**
