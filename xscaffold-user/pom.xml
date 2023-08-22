@@ -57,6 +57,11 @@
             <artifactId>xscaffold-common-log</artifactId>
             <version>${xscaffold-common.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.example</groupId>
+            <artifactId>xscaffold-common-tool</artifactId>
+            <version>${xscaffold-common.version}</version>
+        </dependency>
 
     </dependencies>
 

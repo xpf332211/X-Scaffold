@@ -10,6 +10,7 @@ import com.meiya.result.Result;
 import com.meiya.service.UserService;
 import com.meiya.util.RedisDistributedLockUtil;
 import com.meiya.util.RedisUtil;
+import com.meiya.utils.ExportWordUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,10 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author xiaopf
@@ -86,5 +91,14 @@ public class UserController {
         }
         long end = System.currentTimeMillis();
         log.info("打印完成，耗时{}ms",end - start);
+    }
+
+    @GetMapping("/testWord")
+    public void testWord() throws Exception {
+        Map<String, Object> map = new HashMap<>(8);
+        map.put("name","lili");
+        map.put("mine","mine..");
+        map.put("date",new Date());
+        ExportWordUtil.exportWord(map,"导出文件","wordTemplate.ftl");
     }
 }

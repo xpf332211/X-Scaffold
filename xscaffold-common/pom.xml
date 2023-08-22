@@ -23,6 +23,7 @@
         <module>xscaffold-common-redis</module>
         <module>xscaffold-common-log</module>
         <module>xscaffold-common-starter</module>
+        <module>xscaffold-common-tool</module>
     </modules>
 
     <dependencyManagement>
