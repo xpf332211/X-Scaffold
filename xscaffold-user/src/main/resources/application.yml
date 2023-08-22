@@ -64,4 +64,7 @@ xscaffold:
   log:
     aspect:
       enable: true
+  localCache:
+    util:
+      enable: true
 

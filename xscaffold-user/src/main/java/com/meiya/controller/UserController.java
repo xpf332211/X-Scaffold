@@ -8,22 +8,19 @@ import com.meiya.entity.req.UserReq;
 import com.meiya.entity.PageResult;
 import com.meiya.result.Result;
 import com.meiya.service.UserService;
+import com.meiya.util.LocalCacheUtil;
 import com.meiya.util.RedisDistributedLockUtil;
 import com.meiya.util.RedisUtil;
 import com.meiya.utils.ExportWordUtil;
+
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * @author xiaopf
@@ -41,6 +38,9 @@ public class UserController {
 
     @Resource
     private RedisDistributedLockUtil redisDistributedLockUtil;
+
+    @Resource
+    private LocalCacheUtil<Long,PriceInfo> localCacheUtil;
 
 
 
@@ -104,4 +104,36 @@ public class UserController {
         map.put("date",dateStr);
         ExportWordUtil.exportWord(map,"导出文件","wordTemplate.ftl");
     }
+
+    @GetMapping("/testLocalCache")
+    public void testLocalCache() {
+        List<Long> idList = new ArrayList<>();
+        idList.add(1L);
+        idList.add(2L);
+        Map<Long, PriceInfo> result = localCacheUtil.getResult(idList, "info:price", PriceInfo.class, this::getInfoPrice);
+        System.out.println(result.size());
+    }
+
+    private Map<Long,PriceInfo> getInfoPrice(List<Long> idList)  {
+        //select xx from xx where xx and id IN (...) 批量查询
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            log.info("业务执行时发生异常！");
+        }
+        //模拟返回查询结果
+        Map<Long,PriceInfo> map = new HashMap<>();
+        for (Long id : idList) {
+            map.put(id, new PriceInfo(id, "30"));
+        }
+        return map;
+    }
+
+    @AllArgsConstructor
+    static class PriceInfo{
+        private Long id;
+        private String price;
+    }
+
+
 }
