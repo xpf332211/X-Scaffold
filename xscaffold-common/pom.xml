@@ -27,6 +27,7 @@
         <module>xscaffold-common-websocket</module>
     </modules>
 
+
     <dependencyManagement>
         <dependencies>
             <dependency>

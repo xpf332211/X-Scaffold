@@ -2,7 +2,6 @@ package com.meiya;
 
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
-import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -30,6 +29,7 @@ public class WebSocketServerConfig extends ServerEndpointConfig.Configurator {
     public boolean checkOrigin(String originHeaderValue) {
         ServletRequestAttributes requestAttributes =
                 (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        assert requestAttributes != null;
         HttpServletRequest request = requestAttributes.getRequest();
         //进行校验
         return true;
