@@ -24,6 +24,7 @@
         <module>xscaffold-common-log</module>
         <module>xscaffold-common-starter</module>
         <module>xscaffold-common-tool</module>
+        <module>xscaffold-common-websocket</module>
     </modules>
 
     <dependencyManagement>
@@ -56,6 +57,11 @@
             <dependency>
                 <groupId>org.example</groupId>
                 <artifactId>xscaffold-common-log</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.example</groupId>
+                <artifactId>xscaffold-common-websocket</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>

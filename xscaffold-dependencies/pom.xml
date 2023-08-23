@@ -20,6 +20,7 @@
         <spring-boot-starter-data-redis.version>2.7.14</spring-boot-starter-data-redis.version>
         <spring-boot-starter-log4j2.version>2.7.14</spring-boot-starter-log4j2.version>
         <spring-boot-starter-aop.version>2.7.14</spring-boot-starter-aop.version>
+        <spring-boot-starter-websocket.verison>2.3.10.RELEASE</spring-boot-starter-websocket.verison>
         <lombok.version>1.18.20</lombok.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -166,6 +167,11 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
                 <version>${fastjson.verson}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-websocket</artifactId>
+                <version>${spring-boot-starter-websocket.verison}</version>
             </dependency>
         </dependencies>
 

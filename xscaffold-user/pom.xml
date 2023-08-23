@@ -62,6 +62,11 @@
             <artifactId>xscaffold-common-tool</artifactId>
             <version>${xscaffold-common.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.example</groupId>
+            <artifactId>xscaffold-common-websocket</artifactId>
+            <version>${xscaffold-common.version}</version>
+        </dependency>
 
     </dependencies>
 

@@ -13,6 +13,7 @@
         <module>xscaffold-common</module>
         <module>xscaffold-dependencies</module>
         <module>xscaffold-common/xscaffold-common-starter</module>
+        <module>xscaffold-common/xscaffold-common-websocket</module>
     </modules>
 
 </project>
