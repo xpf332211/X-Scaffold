@@ -122,6 +122,11 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <dependency>
+            <groupId>org.example</groupId>
+            <artifactId>xscaffold-common-test</artifactId>
+            <version>${xscaffold-common.version}</version>
+        </dependency>
 
     </dependencies>
 

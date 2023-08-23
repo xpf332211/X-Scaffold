@@ -14,6 +14,7 @@
         <module>xscaffold-dependencies</module>
         <module>xscaffold-common/xscaffold-common-starter</module>
         <module>xscaffold-common/xscaffold-common-websocket</module>
+        <module>xscaffold-common/xscaffold-common-test</module>
     </modules>
 
 </project>

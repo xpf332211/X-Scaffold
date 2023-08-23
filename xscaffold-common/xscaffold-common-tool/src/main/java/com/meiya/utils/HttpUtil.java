@@ -1,6 +1,8 @@
 package com.meiya.utils;
 
-import jdk.internal.net.http.common.Pair;
+
+
+import org.apache.commons.lang3.tuple.Pair;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.hc.client5.http.classic.methods.HttpPost;
 import org.apache.hc.client5.http.config.RequestConfig;
@@ -83,9 +85,9 @@ public class HttpUtil {
     public static String buildParam(List<Pair<String,String>> pairList){
         StringBuilder stringBuilder = new StringBuilder();
         for (Pair<String, String> pair : pairList) {
-            stringBuilder.append(pair.first)
+            stringBuilder.append(pair.getKey())
                     .append("=")
-                    .append(pair.second)
+                    .append(pair.getValue())
                     .append("&");
         }
         stringBuilder.setLength(stringBuilder.length() - 1);
