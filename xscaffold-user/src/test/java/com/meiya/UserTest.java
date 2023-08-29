@@ -2,6 +2,7 @@ package com.meiya;
 
 import com.meiya.entity.po.UserPo;
 import com.meiya.service.UserService;
+import com.meiya.utils.CompletableFutureUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,8 +12,12 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.concurrent.FutureTask;
 import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 @SpringBootTest(classes = UserApplication.class,webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @RunWith(SpringRunner.class)
@@ -47,6 +52,27 @@ public class UserTest {
             mailThreadPool.execute(()->{
                 log.info("111");
             });
+        }
+    }
+
+    @Test
+    public void test04(){
+        List<FutureTask<String>> futureTaskList = new ArrayList<>();
+        FutureTask<String> futureTask1 = new FutureTask<>(()->{
+            return "result1";
+        });
+        FutureTask<String> futureTask2 = new FutureTask<>(()->{
+            Thread.sleep(2000);
+            return "result2";
+        });
+        futureTaskList.add(futureTask1);
+        futureTaskList.add(futureTask2);
+        mailThreadPool.submit(futureTask1);
+        mailThreadPool.submit(futureTask2);
+        for (FutureTask<String> futureTask : futureTaskList) {
+            String result = CompletableFutureUtil.getResult(futureTask, 1L, TimeUnit.SECONDS,
+                    "defaultResult", log);
+            log.info("result:【{}】",result);
         }
     }
 
