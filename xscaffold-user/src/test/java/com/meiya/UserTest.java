@@ -1,6 +1,8 @@
 package com.meiya;
 
 import com.meiya.entity.po.UserPo;
+import com.meiya.event.Person;
+import com.meiya.event.PersonEventService;
 import com.meiya.service.UserService;
 import com.meiya.utils.CompletableFutureUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -9,11 +11,9 @@ import org.junit.runner.RunWith;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.concurrent.FutureTask;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -29,6 +29,9 @@ public class UserTest {
 
     @Resource(name = "mailThreadPool")
     private ThreadPoolExecutor mailThreadPool;
+
+    @Resource
+    private PersonEventService personEventService;
 
     @Test
     public void test01(){
@@ -65,15 +68,24 @@ public class UserTest {
             Thread.sleep(2000);
             return "result2";
         });
+
         futureTaskList.add(futureTask1);
         futureTaskList.add(futureTask2);
+
         mailThreadPool.submit(futureTask1);
         mailThreadPool.submit(futureTask2);
+
         for (FutureTask<String> futureTask : futureTaskList) {
             String result = CompletableFutureUtil.getResult(futureTask, 1L, TimeUnit.SECONDS,
                     "defaultResult", log);
             log.info("result:【{}】",result);
         }
+    }
+
+    @Test
+    public void test05(){
+        Person person = new Person(1L,"jerry",18);
+        personEventService.createPerson(person);
     }
 
 
