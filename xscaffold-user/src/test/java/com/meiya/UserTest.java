@@ -7,8 +7,10 @@ import org.junit.runner.RunWith;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.annotation.Resource;
+import java.util.Date;
 
 @SpringBootTest(classes = UserApplication.class,webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @RunWith(SpringRunner.class)
@@ -32,5 +34,6 @@ public class UserTest {
         System.out.println(aClass);
         System.out.println(targetClass);
     }
+
 
 }

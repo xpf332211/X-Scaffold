@@ -127,6 +127,11 @@
             <artifactId>xscaffold-common-test</artifactId>
             <version>${xscaffold-common.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.example</groupId>
+            <artifactId>xscaffold-common-job</artifactId>
+            <version>${xscaffold-common.version}</version>
+        </dependency>
 
     </dependencies>
 

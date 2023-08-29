@@ -2,6 +2,7 @@ package com.meiya.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.meiya.convert.UserConverter;
 import com.meiya.entity.po.UserPo;
 import com.meiya.entity.req.UserReq;
@@ -16,10 +17,12 @@ import com.meiya.utils.ExportWordUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.*;
 
 /**
@@ -113,6 +116,8 @@ public class UserController {
         Map<Long, PriceInfo> result = localCacheUtil.getResult(idList, "info:price", PriceInfo.class, this::getInfoPrice);
         System.out.println(result.size());
     }
+
+
 
     private Map<Long,PriceInfo> getInfoPrice(List<Long> idList)  {
         //select xx from xx where xx and id IN (...) 批量查询

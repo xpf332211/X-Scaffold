@@ -26,6 +26,7 @@
         <module>xscaffold-common-tool</module>
         <module>xscaffold-common-websocket</module>
         <module>xscaffold-common-test</module>
+        <module>xscaffold-common-job</module>
     </modules>
 
 
@@ -69,6 +70,11 @@
             <dependency>
                 <groupId>org.example</groupId>
                 <artifactId>xscaffold-common-test</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.example</groupId>
+                <artifactId>xscaffold-common-job</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>
