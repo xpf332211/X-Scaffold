@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class RedisUtil {
     @Resource
-    private RedisTemplate<String,Object> redisTemplate;
+    private RedisTemplate redisTemplate;
 
     public void set(String key,Object object){
         redisTemplate.opsForValue().set(key, object);
@@ -61,8 +61,8 @@ public class RedisUtil {
         return redisTemplate.opsForZSet().score(key, value);
     }
 
-    public Set<Object> rangeByScore(String key, long start, long end) {
-        return redisTemplate.opsForZSet().rangeByScore(key, Double.parseDouble(String.valueOf(start)), Double.valueOf(String.valueOf(end)));
+    public Set<String> rangeByScore(String key, long start, long end) {
+        return redisTemplate.opsForZSet().rangeByScore(key, Double.valueOf(String.valueOf(start)), Double.valueOf(String.valueOf(end)));
     }
 
     public Object addScore(String key, Object obj, double score) {

@@ -19,7 +19,7 @@ public class UserCache extends AbstractCache {
     @Override
     public void initCache() {
         //与数据库作联动，缓存数据
-        redisUtil.set(USER_KEY_PREFIX + "age",11);
+        redisUtil.set(USER_KEY_PREFIX + "age",11L);
     }
 
     @Override
