@@ -3,6 +3,7 @@ package com.meiya.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.meiya.anotation.CurrentLimit;
 import com.meiya.convert.UserConverter;
 import com.meiya.entity.po.UserPo;
 import com.meiya.entity.req.UserReq;
@@ -174,6 +175,16 @@ public class UserController {
         log.info("sync run方法执行前。。");
         System.out.println(userService.syncRun());
         log.info("sync run方法执行后。。");
+    }
+
+    /**
+     * 测试接口限流
+     */
+    @GetMapping("/testLimit")
+    @CurrentLimit(limitPerUnitTime = 3)
+    public String testLimit(){
+        log.info("访问成功");
+        return "ok";
     }
 
 
