@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
+import javax.annotation.Resource;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
@@ -20,8 +21,12 @@ import java.util.function.Function;
 @Slf4j
 public class LocalCacheUtil<K,V> {
 
+    @Resource
+    private MultiLevelCacheUtil<K,V> multiLevelCacheUtil;
     @Value("${xscaffold.localCache.util.enable:false}")
     private boolean enableLocalCache;
+    @Value("${xscaffold.multiLevelCache.util.enable:false}")
+    private boolean enableMultiLevelCache;
     private final Cache<String,String> localCache = CacheBuilder.newBuilder()
             .maximumSize(5000)
             .expireAfterWrite(30, TimeUnit.SECONDS)
@@ -36,6 +41,10 @@ public class LocalCacheUtil<K,V> {
      * @return <id,info> 结果map
      */
     public Map<K,V> getResult(List<K> idList, String keyPrefix, Class<V> clazz, Function<List<K>,Map<K,V>> function){
+        if (enableMultiLevelCache){
+            log.warn("您已开启多级缓存，默认使用多级缓存");
+            return multiLevelCacheUtil.getResult(idList, keyPrefix, clazz, function, 60 * 60, TimeUnit.SECONDS);
+        }
         if (CollectionUtils.isEmpty(idList)){
             return Collections.emptyMap();
         }

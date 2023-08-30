@@ -20,6 +20,8 @@ public class RedisUtil {
         redisTemplate.opsForValue().set(key, object);
     }
 
+    public void set(String key,Object object,long timeout,TimeUnit timeUnit){redisTemplate.opsForValue().set(key,object,timeout,timeUnit);}
+
     public boolean setNx(String key, String value, Long time, TimeUnit timeUnit) {
         return Boolean.TRUE.equals(redisTemplate.opsForValue().setIfAbsent(key, value, time, timeUnit));
     }

@@ -136,10 +136,11 @@ public class UserTest {
         }
     }
 
-    @Test
+
     /**
      * 动态读取properties配置文件
      */
+    @Test
     public void test08() throws IOException, URISyntaxException {
         String value = PropertiesUtil.getInstance().getPropertiesValue("test.properties", "xscaffold.app.name");
         System.out.println(value);

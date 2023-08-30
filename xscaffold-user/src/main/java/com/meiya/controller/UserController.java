@@ -10,6 +10,7 @@ import com.meiya.entity.PageResult;
 import com.meiya.result.Result;
 import com.meiya.service.UserService;
 import com.meiya.util.LocalCacheUtil;
+import com.meiya.util.MultiLevelCacheUtil;
 import com.meiya.util.RedisDistributedLockUtil;
 import com.meiya.util.RedisUtil;
 import com.meiya.utils.ExportWordUtil;
@@ -24,6 +25,7 @@ import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author xiaopf
@@ -44,6 +46,9 @@ public class UserController {
 
     @Resource
     private LocalCacheUtil<Long,PriceInfo> localCacheUtil;
+
+    @Resource
+    private MultiLevelCacheUtil<Long,PriceInfo> multiLevelCacheUtil;
 
 
 
@@ -117,6 +122,16 @@ public class UserController {
         System.out.println(result.size());
     }
 
+    @GetMapping("/testMultiCache")
+    public void testMultiCache(){
+        List<Long> idList = new ArrayList<>();
+        idList.add(1L);
+        idList.add(2L);
+        idList.add(3L);
+        Map<Long, PriceInfo> result =
+                multiLevelCacheUtil.getResult(idList, "info:price", PriceInfo.class, this::getInfoPrice, 3600, TimeUnit.SECONDS);
+        System.out.println(result.size());
+    }
 
 
     private Map<Long,PriceInfo> getInfoPrice(List<Long> idList)  {
