@@ -8,6 +8,7 @@ import com.meiya.queue.delay.MassEmailTask;
 import com.meiya.queue.delay.MassEmailTaskService;
 import com.meiya.service.UserService;
 import com.meiya.util.RedisDistributedLockUtil;
+import com.meiya.util.RedisUtil;
 import com.meiya.utils.CompletableFutureUtil;
 import com.meiya.utils.PropertiesUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -47,6 +48,9 @@ public class UserTest {
 
     @Resource
     private RedisDistributedLockUtil redisDistributedLockUtil;
+
+    @Resource
+    private RedisUtil redisUtil;
 
     @Test
     public void test01() {
@@ -147,4 +151,13 @@ public class UserTest {
     }
 
 
+    /**
+     * 测试cas
+     * 希望将5L改成10L 如果发现redis存储的值不是5L，则不修改
+     */
+    @Test
+    public void test09(){
+        Boolean result = redisUtil.compareAndSet("lua:cas", 5L, 10L);
+        log.info("cas【{}】",result);
+    }
 }

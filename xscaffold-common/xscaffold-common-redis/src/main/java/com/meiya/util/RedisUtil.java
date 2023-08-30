@@ -1,9 +1,15 @@
 package com.meiya.util;
 
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.script.DefaultRedisScript;
+import org.springframework.scripting.support.ResourceScriptSource;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -13,8 +19,29 @@ import java.util.concurrent.TimeUnit;
  */
 @Component
 public class RedisUtil {
+
+    /**
+     * 初始化lua脚本
+     */
+    private DefaultRedisScript<Boolean> casScript;
+    @PostConstruct
+    public void init(){
+        casScript = new DefaultRedisScript<>();
+        //lua脚本返回值类型
+        casScript.setResultType(Boolean.class);
+        //加载位置
+        casScript.setScriptSource(new ResourceScriptSource(new ClassPathResource("cas.lua")));
+    }
+
+
     @Resource
     private RedisTemplate redisTemplate;
+
+    public Boolean compareAndSet(String key,Long oldValue,Long newValue){
+        List<String> keys = new ArrayList<>();
+        keys.add(key);
+        return (Boolean) redisTemplate.execute(casScript,keys,oldValue,newValue);
+    }
 
     public void set(String key,Object object){
         redisTemplate.opsForValue().set(key, object);
