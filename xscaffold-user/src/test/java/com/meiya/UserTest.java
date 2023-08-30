@@ -9,6 +9,7 @@ import com.meiya.queue.delay.MassEmailTaskService;
 import com.meiya.service.UserService;
 import com.meiya.util.RedisDistributedLockUtil;
 import com.meiya.utils.CompletableFutureUtil;
+import com.meiya.utils.PropertiesUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,6 +18,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -130,6 +134,15 @@ public class UserTest {
         } finally {
             redisDistributedLockUtil.unlock(lockKey);
         }
+    }
+
+    @Test
+    /**
+     * 动态读取properties配置文件
+     */
+    public void test08() throws IOException, URISyntaxException {
+        String value = PropertiesUtil.getInstance().getPropertiesValue("test.properties", "xscaffold.app.name");
+        System.out.println(value);
     }
 
 
