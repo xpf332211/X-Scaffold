@@ -25,6 +25,7 @@ import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -154,6 +155,27 @@ public class UserController {
         private Long id;
         private String price;
     }
+
+    /**
+     * 测试链路追踪 子线程
+     */
+    @GetMapping("/testTraceAsync")
+    public void testTraceAsync(){
+        log.info("async run方法执行前。。");
+        CompletableFuture<String> futureResult = userService.asyncRun();
+        futureResult.thenAccept(System.out::println);
+        log.info("async run方法执行后。。");
+    }
+    /**
+     * 测试链路追踪 同一线程
+     */
+    @GetMapping("/testTraceSync")
+    public void testTraceSync(){
+        log.info("sync run方法执行前。。");
+        System.out.println(userService.syncRun());
+        log.info("sync run方法执行后。。");
+    }
+
 
 
 }

@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 /**
  * @author xiaopf
@@ -15,6 +16,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 @MapperScan(basePackages = "com.meiya.mapper")
 @EnableCaching
 @EnableAspectJAutoProxy(exposeProxy = true)
+@EnableAsync
 @Slf4j
 public class UserApplication {
     public static void main(String[] args) {
