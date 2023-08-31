@@ -46,6 +46,7 @@
         <junit.version>4.13.2</junit.version>
         <xxl-job.version>2.3.1</xxl-job.version>
         <spring-context.version>5.3.29</spring-context.version>
+        <easy-excel.version>3.1.1</easy-excel.version>
     </properties>
 
 
@@ -208,6 +209,11 @@
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-context</artifactId>
                 <version>${spring-context.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>easyexcel</artifactId>
+                <version>${easy-excel.version}</version>
             </dependency>
         </dependencies>
 

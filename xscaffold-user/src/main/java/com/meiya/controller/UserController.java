@@ -8,6 +8,7 @@ import com.meiya.convert.UserConverter;
 import com.meiya.entity.po.UserPo;
 import com.meiya.entity.req.UserReq;
 import com.meiya.entity.PageResult;
+import com.meiya.excel.UserExcelExport;
 import com.meiya.result.Result;
 import com.meiya.service.UserService;
 import com.meiya.util.LocalCacheUtil;
@@ -52,7 +53,8 @@ public class UserController {
     @Resource
     private MultiLevelCacheUtil<Long,PriceInfo> multiLevelCacheUtil;
 
-
+    @Resource
+    private UserExcelExport userExcelExport;
 
     @Cacheable(cacheNames = "user",key = "'queryId' + #id")
     @GetMapping("/{id}")
@@ -187,6 +189,13 @@ public class UserController {
         return "ok";
     }
 
+    /**
+     * 测试excel导出
+     */
+    @GetMapping("/testExcel")
+    public void testExcel(){
+        userExcelExport.export("用户信息",new HashMap<>());
+    }
 
 
 }
