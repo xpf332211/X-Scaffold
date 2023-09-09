@@ -1,11 +1,16 @@
 package com.meiya.util;
 
 import com.alibaba.fastjson.JSON;
-import com.google.common.cache.Cache;
-import com.google.common.cache.CacheBuilder;
+import com.meiya.bean.CaffeineCache;
+import com.meiya.bean.GuavaCache;
+import com.meiya.bean.LocalCache;
+import com.meiya.constant.CacheConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
@@ -22,12 +27,33 @@ import java.util.function.Function;
 public class MultiLevelCacheUtil<K,V> {
     @Value("${xscaffold.multiLevelCache.util.enable:false}")
     private boolean enableMultiLevelCache;
-    private final Cache<String,String> localCache = CacheBuilder.newBuilder()
-            .maximumSize(5000)
-            .expireAfterWrite(30, TimeUnit.SECONDS)
-            .build();
+
     @Resource
     private RedisUtil redisUtil;
+
+    private final LocalCache<String> localCache;
+
+    public MultiLevelCacheUtil(
+            @Value("${xscaffold.multiLevelCache.util.local:caffeine}")
+            String cacheSupport,
+            @Autowired(required = false)
+            @Qualifier("guavaCache")
+            GuavaCache guavaCache,
+            @Autowired
+            @Qualifier("caffeineCache") CaffeineCache caffeineCache
+    ) {
+        if (CacheConstants.CAFFEINE.equals(cacheSupport)){
+            this.localCache = caffeineCache;
+        }else if (CacheConstants.GUAVA.equals(cacheSupport)){
+            this.localCache = guavaCache;
+        }else {
+            log.warn("未匹配到指定本地缓存支持，默认使用caffeine");
+            this.localCache = caffeineCache;
+        }
+
+    }
+
+
 
     /**
      *  结合本地缓存获取结果

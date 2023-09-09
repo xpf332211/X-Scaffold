@@ -67,6 +67,7 @@ xscaffold:
   multiLevelCache:
     util:
       enable: true
+      local: caffeine
 
 xxl:
   job:
